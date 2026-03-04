@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-import re
 import shutil
 from pathlib import Path
 from typing import List, Optional, Union
@@ -87,20 +86,12 @@ class PipelineResult(BaseParserResult):
             layout_files.extend(sorted(temp_layout_path.glob("layout_page*.png")))
 
         stem = Path(self.original_images[0]).stem if self.original_images else "result"
-        for layout_file in layout_files:
-            m = re.match(
-                r"layout_page(\d+)\.(jpg|png)$",
-                layout_file.name,
-                re.IGNORECASE,
-            )
-            if m:
-                idx_str, ext = m.group(1), m.group(2).lower()
-            else:
-                idx_str, ext = "0", layout_file.suffix.lstrip(".") or "jpg"
+        for local_idx, layout_file in enumerate(layout_files):
+            ext = layout_file.suffix.lstrip(".").lower() or "jpg"
             new_name = (
                 f"{stem}.{ext}"
                 if len(layout_files) == 1
-                else f"{stem}_page{idx_str}.{ext}"
+                else f"{stem}_page{local_idx}.{ext}"
             )
             target_file = target_dir / new_name
             shutil.move(str(layout_file), str(target_file))
