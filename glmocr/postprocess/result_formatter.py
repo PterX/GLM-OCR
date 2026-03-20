@@ -23,6 +23,7 @@ from glmocr.utils.logging import get_logger, get_profiler
 from glmocr.utils.result_postprocess_utils import (
     clean_repeated_content,
     clean_formula_number,
+    normalize_inline_formula,
 )
 
 if TYPE_CHECKING:
@@ -260,6 +261,8 @@ class ResultFormatter(BasePostProcessor):
         # Remove repeated substrings (for long content)
         if len(content) >= 2048:
             content = clean_repeated_content(content)
+
+        content = normalize_inline_formula(content)
 
         return content.strip()
 
