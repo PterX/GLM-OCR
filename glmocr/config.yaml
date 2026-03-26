@@ -106,7 +106,7 @@ pipeline:
 
   # Maximum parallel workers for region recognition
   # Lower values to reduce 503 errors on busy OCR servers
-  max_workers: 64
+  max_workers: 32
   # Queue sizes
   page_maxsize: 100
   region_maxsize: 2000
@@ -149,6 +149,10 @@ pipeline:
   result_formatter:
     # Output format: json, markdown, or both
     output_format: both
+    # Post-process switches
+    enable_merge_formula_numbers: true
+    enable_merge_text_blocks: true
+    enable_format_bullet_points: true
 
     # Label to visualization category mapping (for layout visualization)
     label_visualization_mapping:

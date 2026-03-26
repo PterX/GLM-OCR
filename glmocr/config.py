@@ -172,6 +172,9 @@ class ResultFormatterConfig(_BaseConfig):
     filter_nested: bool = True
     min_overlap_ratio: float = 0.8
     output_format: str = "both"  # json | markdown | both
+    enable_merge_formula_numbers: bool = True
+    enable_merge_text_blocks: bool = True
+    enable_format_bullet_points: bool = True
     label_visualization_mapping: Dict[str, Any] = Field(default_factory=dict)
 
 

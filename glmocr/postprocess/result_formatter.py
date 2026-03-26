@@ -63,6 +63,9 @@ class ResultFormatter(BasePostProcessor):
 
         # Output format
         self.output_format = config.output_format
+        self.enable_merge_formula_numbers = config.enable_merge_formula_numbers
+        self.enable_merge_text_blocks = config.enable_merge_text_blocks
+        self.enable_format_bullet_points = config.enable_format_bullet_points
 
     # =========================================================================
     # OCR-only mode
@@ -193,13 +196,16 @@ class ResultFormatter(BasePostProcessor):
                     json_page_results.append(result)
 
                 # Merge formula with formula_number
-                json_page_results = self._merge_formula_numbers(json_page_results)
+                if self.enable_merge_formula_numbers:
+                    json_page_results = self._merge_formula_numbers(json_page_results)
 
                 # Merge hyphenated text blocks
-                json_page_results = self._merge_text_blocks(json_page_results)
+                if self.enable_merge_text_blocks:
+                    json_page_results = self._merge_text_blocks(json_page_results)
 
                 # Format bullet points
-                json_page_results = self._format_bullet_points(json_page_results)
+                if self.enable_format_bullet_points:
+                    json_page_results = self._format_bullet_points(json_page_results)
 
                 json_final_results.append(json_page_results)
 
