@@ -1248,6 +1248,7 @@ class TestGlmOcrParseStream:
         parser._stream_parse_selfhosted.assert_called_once_with(
             ["a.png", "b.png"],
             save_layout_visualization=False,
+            preserve_order=True,
         )
 
 
